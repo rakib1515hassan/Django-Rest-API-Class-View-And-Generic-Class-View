@@ -46,12 +46,16 @@ class StudentSerializer(serializers.Serializer):
 
 
 class TeacherSerializer(serializers.Serializer):
+    id         = serializers.IntegerField()
     name       = serializers.CharField(max_length=50)
     age        = serializers.IntegerField()
     salary     = serializers.IntegerField()
     experience = serializers.BooleanField()
 
     def create(self, validated_data):
+        # print("--------------------")
+        # print(validated_data)
+        # print("--------------------")
         return Teacher.objects.create(**validated_data)
     
     def update(self, instance, validated_data): 
@@ -66,7 +70,7 @@ class TeacherSerializer(serializers.Serializer):
 # class TeacherSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = Teacher
-#         # fields = ['id', 'name', 'age', 'salary', 'experience']
+#         fields = ['id', 'name', 'age', 'salary', 'experience']
 #         fields = '__all__'
 
 

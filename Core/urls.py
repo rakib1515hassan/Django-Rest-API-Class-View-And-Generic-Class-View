@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('app.urls')),
     path('generic/', include('GenericAPI.urls')),
     path('view-sets/', include('ViewSets.urls')),
+    path('filtering/', include('FilterObj.urls')),
 ]
 
 

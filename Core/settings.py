@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'app',
     'GenericAPI',
     'ViewSets',
+    'FilterObj',
 ]
 
 MIDDLEWARE = [

@@ -42,10 +42,7 @@ urlpatterns = [
 
     ## -------------------------( _generic_filter.py )-------------------------------
     path('django_filter1/', _generic_filtering.Django_Filter_1.as_view()),
-
-
-
-
+    path('django_filter2/', _generic_filtering.Django_Filter_2.as_view()),
 
 
 

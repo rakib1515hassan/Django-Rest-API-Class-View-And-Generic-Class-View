@@ -31,6 +31,7 @@ from rest_framework.generics import (
 )
 from django_filters.rest_framework import DjangoFilterBackend
 from django_filters import rest_framework as filters
+from rest_framework.filters import SearchFilter
 
 # NOTE আমরা এইভাবেও Filter এর জন্যে Class Declare করে দিতে পারি তেবে এর জন্যে আমাদের filterset_fields এর পরিবর্তে
 # filterset_class = class_name বলে দিতে হবে। 
@@ -45,7 +46,8 @@ class BookFilter(filters.FilterSet):
 
 
 
-
+## URL = ( http://127.0.0.1:8000/filtering/django_filter1/?name=&price=&authors__user__username=&authors__phone= )
+## যা আমরা filter করতে চাই তা = এর পর দিতে হবে। Example: /?name = Easy Python & authors__user__username = rakib
 class Django_Filter_1(ListAPIView):    
     queryset = Book.objects.all()                             
     serializer_class = BookSerializer
@@ -87,6 +89,31 @@ class Django_Filter_1(ListAPIView):
     # filterset_class = BookFilter
     
 
+
+
+
+## URL ( http://127.0.0.1:8000/filtering/django_filter2/?search= )
+## যা আমরা Search করতে চাই তা /?search= এর পর দিতে হবে। তবে আমরা যদি search এর যায়গায় অন্য কিছু লিখতে চাই তবে
+## setting.py তে REST_FRAMEWORK = { 'SEARCH_PARAM': 'abc' } লিখতে হবে তবে আমরা /?abc=rakib ভাবে search করতে পারবো।
+class Django_Filter_2(ListAPIView):    
+    queryset = Book.objects.all()                             
+    serializer_class = BookSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['^name', 'publisher__name', '=authors__user__first_name', '=authors__user__last_name']    
+                                # '^name' Start With
+                                # '=name' Exact Matches
+                                # '@name' Full Text Search (Currently only supported Django's PostgreSQL backend.)
+                                # '$name' Regex Search
+
+    # search_fields = {
+    #     'name': ['iexact'],
+
+    #     'publisher__name': ['iexact'],
+
+    #     # 'authors__user__username': ['iexact'],
+    #     'authors__user__first_name': ['iexact'],
+    #     'authors__user__last_name': ['iexact'],
+    # }
 
 
 

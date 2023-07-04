@@ -31,7 +31,11 @@ from rest_framework.generics import (
 )
 from django_filters.rest_framework import DjangoFilterBackend
 from django_filters import rest_framework as filters
-from rest_framework.filters import SearchFilter
+from rest_framework.filters import SearchFilter, OrderingFilter
+from FilterObj.pagination import CustomPagination, CustomPagination_1, CustomPagination_LO, CustomPagination_CP
+
+
+
 
 # NOTE আমরা এইভাবেও Filter এর জন্যে Class Declare করে দিতে পারি তেবে এর জন্যে আমাদের filterset_fields এর পরিবর্তে
 # filterset_class = class_name বলে দিতে হবে। 
@@ -44,13 +48,16 @@ class BookFilter(filters.FilterSet):
 
 
 
-
-
 ## URL = ( http://127.0.0.1:8000/filtering/django_filter1/?name=&price=&authors__user__username=&authors__phone= )
 ## যা আমরা filter করতে চাই তা = এর পর দিতে হবে। Example: /?name = Easy Python & authors__user__username = rakib
 class Django_Filter_1(ListAPIView):    
     queryset = Book.objects.all()                             
     serializer_class = BookSerializer
+
+    
+    pagination_class = CustomPagination_LO
+    # pagination_class = CustomPagination_CP
+
 
     filter_backends = [DjangoFilterBackend]
 
@@ -98,7 +105,10 @@ class Django_Filter_1(ListAPIView):
 class Django_Filter_2(ListAPIView):    
     queryset = Book.objects.all()                             
     serializer_class = BookSerializer
-    filter_backends = [SearchFilter]
+    pagination_class = CustomPagination
+
+    filter_backends = [ OrderingFilter, SearchFilter ]
+    ordering_fields = ['id']
     search_fields = ['^name', 'publisher__name', '=authors__user__first_name', '=authors__user__last_name']    
                                 # '^name' Start With
                                 # '=name' Exact Matches

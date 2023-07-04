@@ -127,7 +127,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-## Globally Declare DjangoFilterBackend
+## For  Globally Declare DjangoFilterBackend API
 # REST_FRAMEWORK = {
     
 #         'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
@@ -137,9 +137,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-## For Search Filtering 
+## For Globally Search Filtering API
 # REST_FRAMEWORK = {
     
 #         'SEARCH_PARAM': 'abc'
 
 #     }
+
+
+## For Globally pagination API
+# REST_FRAMEWORK = {
+#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+#     'PAGE_SIZE': 2
+# }

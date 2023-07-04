@@ -29,7 +29,7 @@ class Publisher(models.Model):
 
 class Book(models.Model):
     authors   = models.ManyToManyField(Author)
-    publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
+    publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, related_name='book')
 
     name      = models.CharField(max_length=300)
     pages     = models.IntegerField()

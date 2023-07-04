@@ -45,33 +45,33 @@ class StudentSerializer(serializers.Serializer):
 
 
 
-# class TeacherSerializer(serializers.Serializer):
-#    # id         = serializers.IntegerField()
-#     name       = serializers.CharField(max_length=50)
-#     age        = serializers.IntegerField()
-#     salary     = serializers.IntegerField()
-#     experience = serializers.BooleanField()
+class TeacherSerializer(serializers.Serializer):
+   # id         = serializers.IntegerField()
+    name       = serializers.CharField(max_length=50)
+    age        = serializers.IntegerField()
+    salary     = serializers.IntegerField()
+    experience = serializers.BooleanField()
 
-#     def create(self, validated_data):
-#         # print("--------------------")
-#         # print(validated_data)
-#         # print("--------------------")
-#         return Teacher.objects.create(**validated_data)
+    def create(self, validated_data):
+        # print("--------------------")
+        # print(validated_data)
+        # print("--------------------")
+        return Teacher.objects.create(**validated_data)
     
-#     def update(self, instance, validated_data): 
-#         instance.name       = validated_data.get('name',       instance.name)
-#         instance.age        = validated_data.get('age',        instance.age)
-#         instance.salary     = validated_data.get('salary',     instance.salary)
-#         instance.experience = validated_data.get('experience', instance.experience)
-#         instance.save()
-#         return instance
+    def update(self, instance, validated_data): 
+        instance.name       = validated_data.get('name',       instance.name)
+        instance.age        = validated_data.get('age',        instance.age)
+        instance.salary     = validated_data.get('salary',     instance.salary)
+        instance.experience = validated_data.get('experience', instance.experience)
+        instance.save()
+        return instance
 
 # Alter-Native Way 
-class TeacherSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Teacher
-        fields = ['id', 'name', 'age', 'salary', 'experience']
-        # fields = '__all__'
+# class TeacherSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Teacher
+#         fields = ['id', 'name', 'age', 'salary', 'experience']
+#         # fields = '__all__'
 
 
 

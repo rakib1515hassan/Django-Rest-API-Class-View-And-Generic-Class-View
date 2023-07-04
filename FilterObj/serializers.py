@@ -83,10 +83,20 @@ class UserUpdateSerializer(serializers.ModelSerializer):
 
 
 class PublisherSerializer(serializers.ModelSerializer):
-    class Meta:
+# class PublisherSerializer(serializers.HyperlinkedModelSerializer):
+    book = serializers.StringRelatedField(many =True, read_only = True) # এর মাধ্যমে দেখাজবে এই Publisher এর কি কি Book আছে ।
+    # book = serializers.HyperlinkedIdentityField(
+    #     many=True,
+    #     read_only=True,
+    #     view_name='book-detail'  # Replace 'book-detail' with the actual view name for retrieving a book detail
+    # )
+
+    class Meta:                                                                                                                                                                                                                                                                                                                                                                                                                        
         model = Publisher
         # fields = '__all__'
-        fields = ['id', 'name']
+        # fields = ['id', 'name']
+        fields = ['id', 'name', 'book']       
+        # fields = ['id', 'name', 'book', 'url']       
 
 
 
@@ -97,7 +107,13 @@ class PublisherSerializer(serializers.ModelSerializer):
 
 class BookSerializer(serializers.ModelSerializer):
     # authors = AuthorSerializer(many=True)
+    authors = serializers.StringRelatedField(many =True, read_only = True)     # এটি করলে 1,2,3 id পরিবর্তে author name দেখাবে।
+    # authors = serializers.PrimaryKeyRelatedField(many =True, read_only = True) # এটি করলে 1,2,3 id  দেখাবে name দেখাবে না।
+
+
     # publisher = PublisherSerializer()
+    publisher = serializers.StringRelatedField(read_only=True)
+    # publisher = serializers.PrimaryKeyRelatedField(queryset=Publisher.objects.all())
 
     class Meta:
         model = Book
